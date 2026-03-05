@@ -70,7 +70,7 @@ export function MapView({ games, onBack, onJoinGame, userLocation }: MapViewProp
       return { id: game.id, x, y, game };
     });
     setGameMarkers(markers);
-  }, [filteredGames]);
+  }, [filteredGames.length, filteredGames.map(g => g.id).join(',')]);
 
   // Draw map
   useEffect(() => {
@@ -181,7 +181,7 @@ export function MapView({ games, onBack, onJoinGame, userLocation }: MapViewProp
     });
 
     ctx.restore();
-  }, [gameMarkers, selectedGame, zoom, pan]);
+  }, [gameMarkers, selectedGame?.id, zoom, pan.x, pan.y]);
 
   const getSportEmoji = (sport: string) => {
     const emojis: Record<string, string> = {
